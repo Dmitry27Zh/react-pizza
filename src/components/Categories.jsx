@@ -1,13 +1,19 @@
+const CATEGORIES = [
+  { _id: 1, title: 'Все' },
+  { _id: 2, title: 'Мясные' },
+  { _id: 3, title: 'Вегетарианская' },
+  { _id: 4, title: 'Гриль' },
+  { _id: 5, title: 'Острые' },
+  { _id: 6, title: 'Закрытые' },
+]
+
 const Categories = () => {
   return (
     <div className="categories">
       <ul>
-        <li>Все</li>
-        <li>Мясные</li>
-        <li>Вегетарианская</li>
-        <li>Гриль</li>
-        <li>Острые</li>
-        <li>Закрытые</li>
+        {CATEGORIES.map((category) => (
+          <li key={category._id}>{category.title}</li>
+        ))}
       </ul>
     </div>
   )
