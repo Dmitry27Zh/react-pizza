@@ -1,3 +1,5 @@
+import { useState } from 'react'
+
 const CATEGORIES = [
   { _id: 1, title: 'Все' },
   { _id: 2, title: 'Мясные' },
@@ -8,11 +10,22 @@ const CATEGORIES = [
 ]
 
 const Categories = () => {
+  const [active, setActive] = useState(CATEGORIES[0]._id)
+  const handleCategoryClick = (id) => {
+    setActive(id)
+  }
+
   return (
     <div className="categories">
       <ul>
         {CATEGORIES.map((category) => (
-          <li key={category._id}>{category.title}</li>
+          <li
+            key={category._id}
+            className={category._id === active ? 'active' : ''}
+            onClick={() => handleCategoryClick(category._id)}
+          >
+            {category.title}
+          </li>
         ))}
       </ul>
     </div>
