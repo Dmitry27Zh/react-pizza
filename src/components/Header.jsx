@@ -13,7 +13,7 @@ const Header = () => {
           </div>
         </Link>
         <div className="header__cart">
-          <a href="/cart.html" className="button button--cart">
+          <Link to="/cart" className="button button--cart">
             <span>520 ₽</span>
             <div className="button__delimiter"></div>
             <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -40,7 +40,7 @@ const Header = () => {
               />
             </svg>
             <span>3</span>
-          </a>
+          </Link>
         </div>
       </div>
     </div>
