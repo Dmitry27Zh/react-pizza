@@ -4,7 +4,6 @@ const NotFound = () => {
   return (
     <>
       <NotFoundBlock />
-      <button>Назад</button>
     </>
   )
 }
