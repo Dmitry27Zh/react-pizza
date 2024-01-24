@@ -3,16 +3,18 @@ import Header from './components/Header'
 import Categories from './components/Categories'
 import './scss/app.scss'
 import Sort from './components/Sort'
-import PizzaBlock from './components/PizzaBlock'
 import { useEffect, useState } from 'react'
+import Items from './components/Items'
 
 function App() {
   const [items, setItems] = useState([])
+  const [isLoading, setIsLoading] = useState(true)
   useEffect(() => {
     fetch('https://65b09ea3d16d31d11bdcde5a.mockapi.io/items')
       .then((res) => res.json())
       .then((data) => setItems(data))
       .catch((e) => alert(e))
+      .finally(() => setIsLoading(false))
   }, [])
 
   return (
@@ -27,9 +29,7 @@ function App() {
             </div>
             <h2 className="content__title">Все пиццы</h2>
             <div className="content__items">
-              {items.map(({ _id, ...rest }) => (
-                <PizzaBlock key={_id} {...rest} />
-              ))}
+              <Items isLoading={isLoading} items={items} />
             </div>
           </div>
         </div>
