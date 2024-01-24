@@ -15,7 +15,7 @@ const Home = () => {
   }, [])
 
   return (
-    <>
+    <div className="container">
       <div className="content__top">
         <Categories />
         <Sort />
@@ -24,7 +24,7 @@ const Home = () => {
       <div className="content__items">
         <Items isLoading={isLoading} items={items} />
       </div>
-    </>
+    </div>
   )
 }
 
