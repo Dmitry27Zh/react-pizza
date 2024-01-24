@@ -68,8 +68,10 @@ body {
 .cart {
   &__top {
     display: flex;
+    flex-wrap: wrap;
     justify-content: space-between;
     align-items: center;
+    gap: 10px;
   }
 
   .content__title {
@@ -88,6 +90,11 @@ body {
         stroke-width: 1.9;
       }
     }
+  }
+
+  .content__items {
+    display: flex;
+    flex-direction: column;
   }
 
   &__clear {
@@ -123,16 +130,19 @@ body {
 
   &__item {
     display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
     width: 100%;
     border-top: 1px solid $gray-line;
     padding-top: 30px;
     margin-top: 30px;
 
     &-img {
+      flex: 0 0 80px;
+      height: 80px;
       display: flex;
       align-items: center;
       margin-right: 15px;
-      width: 10%;
 
       img {
         width: 80px;
@@ -163,7 +173,7 @@ body {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      width: 13%;
+      gap: 10px;
 
       &-minus {
         svg {
@@ -182,7 +192,6 @@ body {
       display: flex;
       align-items: center;
       justify-content: center;
-      width: 33%;
 
       b {
         font-weight: bold;
@@ -195,7 +204,6 @@ body {
       display: flex;
       align-items: center;
       justify-content: flex-end;
-      width: 4%;
 
       .button {
         border-color: darken($color: $gray-line, $amount: 10);
@@ -230,6 +238,8 @@ body {
     &-details {
       display: flex;
       justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 10px;
 
       span {
         font-size: 22px;
@@ -245,6 +255,8 @@ body {
     &-buttons {
       display: flex;
       justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 10px;
       margin-top: 40px;
 
       .go-back-btn {
