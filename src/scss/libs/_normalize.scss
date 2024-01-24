@@ -16,6 +16,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
   color: $black;
+  word-break: break-all;
 }
 
 a,
@@ -42,6 +43,10 @@ h2 {
 
 a {
   text-decoration: none;
+}
+
+img {
+  max-width: 100%;
 }
 
 @mixin noselect {
