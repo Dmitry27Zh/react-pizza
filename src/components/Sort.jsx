@@ -1,9 +1,20 @@
 import { useState } from 'react'
 
+const OPTIONS = [
+  { _id: 1, title: 'популярности' },
+  { _id: 2, title: 'цене' },
+  { _id: 3, title: 'алфавиту' },
+]
+
 const Sort = () => {
   const [isOpen, setIsOpen] = useState(false)
-  const handleOpenButtonClick = () => {
+  const [currentOption, setCurrentOption] = useState(OPTIONS[0])
+  const handleToggleClick = () => {
     setIsOpen((prevState) => !prevState)
+  }
+  const handleOptionClick = (id) => {
+    setIsOpen(false)
+    setCurrentOption(id)
   }
 
   return (
@@ -16,14 +27,20 @@ const Sort = () => {
           />
         </svg>
         <b>Сортировка по:</b>
-        <span onClick={handleOpenButtonClick}>популярности</span>
+        <span onClick={handleToggleClick}>{currentOption.title}</span>
       </div>
       {isOpen && (
         <div className="sort__popup">
           <ul>
-            <li>популярности</li>
-            <li>цене</li>
-            <li>алфавиту</li>
+            {OPTIONS.map((option) => (
+              <li
+                key={option._id}
+                className={currentOption === option._id ? 'active' : ''}
+                onClick={() => handleOptionClick(option)}
+              >
+                {option.title}
+              </li>
+            ))}
           </ul>
         </div>
       )}
