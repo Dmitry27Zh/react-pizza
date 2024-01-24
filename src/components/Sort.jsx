@@ -1,4 +1,11 @@
+import { useState } from 'react'
+
 const Sort = () => {
+  const [isOpen, setIsOpen] = useState(false)
+  const handleOpenButtonClick = () => {
+    setIsOpen((prevState) => !prevState)
+  }
+
   return (
     <div className="sort">
       <div className="sort__label">
@@ -9,15 +16,17 @@ const Sort = () => {
           />
         </svg>
         <b>Сортировка по:</b>
-        <span>популярности</span>
+        <span onClick={handleOpenButtonClick}>популярности</span>
       </div>
-      <div className="sort__popup">
-        <ul>
-          <li>популярности</li>
-          <li>цене</li>
-          <li>алфавиту</li>
-        </ul>
-      </div>
+      {isOpen && (
+        <div className="sort__popup">
+          <ul>
+            <li>популярности</li>
+            <li>цене</li>
+            <li>алфавиту</li>
+          </ul>
+        </div>
+      )}
     </div>
   )
 }
