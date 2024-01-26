@@ -5,8 +5,11 @@ import Home from './pages/Home'
 import NotFound from './pages/NotFound'
 import './scss/app.scss'
 import Cart from './pages/Cart'
+import { useState } from 'react'
 
 function App() {
+  const [search, setSearch] = useState('')
+
   return (
     <div className="App">
       <div className="wrapper">
