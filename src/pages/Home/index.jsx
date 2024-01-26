@@ -1,19 +1,19 @@
-import { useContext, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import Categories from '../../components/Categories'
 import Sort from '../../components/Sort'
 import Items from '../../components/Items'
-import { AppContext } from '../../App'
 import { getUrl } from './utils'
+import categories from '../../assets/json/categories.json'
 
 const Home = () => {
-  const { currentCategory } = useContext(AppContext)
+  const [currentCategory, setCurrentCategory] = useState(categories[0]._id)
   const [items, setItems] = useState([])
   const [isLoading, setIsLoading] = useState(true)
   useEffect(() => {
     setIsLoading(true)
     fetch(
       getUrl({
-        category: currentCategory._id,
+        category: currentCategory,
       })
     )
       .then((res) => res.json())
@@ -22,11 +22,18 @@ const Home = () => {
       .finally(() => setIsLoading(false))
     window.scrollTo(0, 0)
   }, [currentCategory])
+  const handleCategoryChange = (category) => {
+    setCurrentCategory(category)
+  }
 
   return (
     <div className="container">
       <div className="content__top">
-        <Categories />
+        <Categories
+          categories={categories}
+          currentCategory={currentCategory}
+          handleCategoryChange={handleCategoryChange}
+        />
         <Sort />
       </div>
       <h2 className="content__title">Все пиццы</h2>
