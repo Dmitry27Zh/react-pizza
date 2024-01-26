@@ -12,6 +12,7 @@ const Home = () => {
       .then((data) => setItems(data))
       .catch((e) => alert(e))
       .finally(() => setIsLoading(false))
+    window.scrollTo(0, 0)
   }, [])
 
   return (
