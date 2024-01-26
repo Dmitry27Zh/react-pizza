@@ -6,7 +6,7 @@ import { getUrl } from './utils'
 import categories from '../../assets/json/categories.json'
 import sortOptions from '../../assets/json/sort.json'
 
-const Home = () => {
+const Home = ({ search }) => {
   const [currentCategory, setCurrentCategory] = useState(categories[0]._id)
   const [currentSort, setCurrentSort] = useState(sortOptions[0])
   const [items, setItems] = useState([])
@@ -18,6 +18,7 @@ const Home = () => {
         category: currentCategory,
         sortBy: currentSort.value,
         order: 'desc',
+        search: search.trim(),
       })
     )
       .then((res) => {
@@ -33,14 +34,14 @@ const Home = () => {
       .catch((e) => alert(e))
       .finally(() => setIsLoading(false))
     window.scrollTo(0, 0)
-  }, [currentCategory, currentSort])
+  }, [currentCategory, currentSort, search])
   const handleCategoryChange = (category) => {
     setCurrentCategory(category)
   }
   const handleSortChange = (sort) => {
     setCurrentSort(sort)
   }
-  console.log(items)
+
   return (
     <div className="container">
       <div className="content__top">
