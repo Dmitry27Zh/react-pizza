@@ -9,11 +9,14 @@ import { useState } from 'react'
 
 function App() {
   const [search, setSearch] = useState('')
+  const handleSearch = (value) => {
+    setSearch(value)
+  }
 
   return (
     <div className="App">
       <div className="wrapper">
-        <Header />
+        <Header search={search} onSearch={handleSearch} />
         <div className="content">
           <Routes>
             <Route path="/" element={<Home />} />

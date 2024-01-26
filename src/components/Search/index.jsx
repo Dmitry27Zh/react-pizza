@@ -1,9 +1,18 @@
 import styles from './Search.module.scss'
 
-const Search = () => {
+const Search = ({ value, onInput }) => {
+  const handleChange = (e) => {
+    onInput(e.target.value)
+  }
   return (
     <div className={styles.root}>
-      <input className={styles.input} type="search" placeholder="Поиск пиццы..." />
+      <input
+        className={styles.input}
+        type="search"
+        placeholder="Поиск пиццы..."
+        value={value}
+        onChange={handleChange}
+      />
       <svg
         className={styles.icon}
         fill="none"
