@@ -1,19 +1,27 @@
-import { useEffect, useState } from 'react'
-import Categories from '../components/Categories'
-import Sort from '../components/Sort'
-import Items from '../components/Items'
+import { useContext, useEffect, useState } from 'react'
+import Categories from '../../components/Categories'
+import Sort from '../../components/Sort'
+import Items from '../../components/Items'
+import { AppContext } from '../../App'
+import { getUrl } from './utils'
 
 const Home = () => {
+  const { currentCategory } = useContext(AppContext)
   const [items, setItems] = useState([])
   const [isLoading, setIsLoading] = useState(true)
   useEffect(() => {
-    fetch('https://65b09ea3d16d31d11bdcde5a.mockapi.io/items')
+    setIsLoading(true)
+    fetch(
+      getUrl({
+        category: currentCategory._id,
+      })
+    )
       .then((res) => res.json())
       .then((data) => setItems(data))
       .catch((e) => alert(e))
       .finally(() => setIsLoading(false))
     window.scrollTo(0, 0)
-  }, [])
+  }, [currentCategory])
 
   return (
     <div className="container">
