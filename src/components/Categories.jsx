@@ -1,14 +1,10 @@
-const Categories = ({ categories, currentCategory, handleCategoryChange }) => {
+const Categories = ({ items, current, onChange }) => {
   return (
     <div className="categories">
       <ul>
-        {categories.map((category) => (
-          <li
-            key={category._id}
-            className={category._id === currentCategory ? 'active' : ''}
-            onClick={() => handleCategoryChange(category._id)}
-          >
-            {category.title}
+        {items.map((item) => (
+          <li key={item._id} className={item._id === current ? 'active' : ''} onClick={() => onChange(item._id)}>
+            {item.title}
           </li>
         ))}
       </ul>
