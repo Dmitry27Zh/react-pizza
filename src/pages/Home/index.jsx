@@ -5,6 +5,7 @@ import Items from '../../components/Items'
 import { getUrl } from './utils'
 import categories from '../../assets/json/categories.json'
 import sortOptions from '../../assets/json/sort.json'
+import Pagination from '../../components/Pagination'
 
 const Home = ({ search }) => {
   const [currentCategory, setCurrentCategory] = useState(categories[0]._id)
@@ -52,6 +53,7 @@ const Home = ({ search }) => {
       <div className="content__items">
         <Items isLoading={isLoading} items={items} />
       </div>
+      <Pagination />
     </div>
   )
 }
