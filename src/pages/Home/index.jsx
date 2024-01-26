@@ -20,7 +20,15 @@ const Home = () => {
         order: 'desc',
       })
     )
-      .then((res) => res.json())
+      .then((res) => {
+        if (res.ok) {
+          return res.json()
+        } else if (res.status === 404) {
+          return []
+        } else {
+          throw new Error(res.statusText)
+        }
+      })
       .then((data) => setItems(data))
       .catch((e) => alert(e))
       .finally(() => setIsLoading(false))
@@ -32,7 +40,7 @@ const Home = () => {
   const handleSortChange = (sort) => {
     setCurrentSort(sort)
   }
-
+  console.log(items)
   return (
     <div className="container">
       <div className="content__top">

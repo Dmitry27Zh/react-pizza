@@ -19,7 +19,7 @@ function App() {
         <Header search={search} onSearch={handleSearch} />
         <div className="content">
           <Routes>
-            <Route path="/" element={<Home />} />
+            <Route path="/" element={<Home search={search} />} />
             <Route path="/cart" element={<Cart />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
