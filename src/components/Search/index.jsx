@@ -1,21 +1,26 @@
+import { useCallback, useState } from 'react'
 import styles from './Search.module.scss'
 import debounce from 'lodash.debounce'
 
-const test = debounce(() => console.log('Hi'), 1000)
-
 const Search = ({ value, onInput }) => {
-  const handleChange = (e) => {
-    onInput(e.target.value)
-    test()
-  }
+  const [current, setCurrent] = useState(value)
+  const handleChange = useCallback(
+    debounce((change) => {
+      onInput(change)
+    }, 1000),
+    []
+  )
   return (
     <div className={styles.root}>
       <input
         className={styles.input}
         type="search"
         placeholder="Поиск пиццы..."
-        value={value}
-        onChange={handleChange}
+        value={current}
+        onChange={(e) => {
+          setCurrent(e.target.value)
+          handleChange(current)
+        }}
       />
       <svg
         className={styles.icon}
