@@ -1,4 +1,5 @@
 import { useContext, useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import Categories from '../../components/Categories'
 import Sort from '../../components/Sort'
 import Items from '../../components/Items'
@@ -7,13 +8,15 @@ import categories from '../../assets/json/categories.json'
 import sortOptions from '../../assets/json/sort.json'
 import Pagination from '../../components/Pagination'
 import { AppContext } from '../../App'
+import { changeCategory } from '../../redux/slices/filterSlice'
 
 const INITIAL_PAGE = 0
 const PAGE_COUNT = 4
 
 const Home = () => {
   const { search } = useContext(AppContext)
-  const [currentCategory, setCurrentCategory] = useState(categories[0]._id)
+  const currentCategory = useSelector((state) => state.filter.category)
+  const dispatch = useDispatch()
   const [currentSort, setCurrentSort] = useState(sortOptions[0])
   const [items, setItems] = useState([])
   const [isLoading, setIsLoading] = useState(true)
@@ -45,7 +48,7 @@ const Home = () => {
     window.scrollTo(0, 0)
   }, [currentCategory, currentSort, search, currentPage])
   const handleCategoryChange = (category) => {
-    setCurrentCategory(category)
+    dispatch(changeCategory(category))
   }
   const handleSortChange = (sort) => {
     setCurrentSort(sort)
@@ -57,7 +60,7 @@ const Home = () => {
   return (
     <div className="container">
       <div className="content__top">
-        <Categories items={categories} onChange={handleCategoryChange} />
+        <Categories items={categories} current={currentCategory} onChange={handleCategoryChange} />
         <Sort items={sortOptions} current={currentSort} onChange={handleSortChange} />
       </div>
       <h2 className="content__title">Все пиццы</h2>
