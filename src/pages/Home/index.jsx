@@ -1,22 +1,18 @@
 import { useContext, useEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import Categories from '../../components/Categories'
 import Sort from '../../components/Sort'
 import Items from '../../components/Items'
 import { getUrl } from './utils'
-import categories from '../../assets/json/categories.json'
 import Pagination from '../../components/Pagination'
 import { AppContext } from '../../App'
-import { changeCategory } from '../../redux/slices/filter'
 
 const INITIAL_PAGE = 0
 const PAGE_COUNT = 4
 
 const Home = () => {
   const { search } = useContext(AppContext)
-  const currentCategory = useSelector((state) => state.filter.category)
-  const currentSort = useSelector((state) => state.filter.sort)
-  const dispatch = useDispatch()
+  const { category, sort } = useSelector((state) => state.filter)
   const [items, setItems] = useState([])
   const [isLoading, setIsLoading] = useState(true)
   const [currentPage, setCurrentPage] = useState(INITIAL_PAGE)
@@ -24,8 +20,8 @@ const Home = () => {
     setIsLoading(true)
     fetch(
       getUrl({
-        category: currentCategory,
-        sortBy: currentSort.value,
+        category,
+        sortBy: sort.value,
         order: 'desc',
         search: search.trim(),
         page: currentPage + 1,
@@ -45,10 +41,7 @@ const Home = () => {
       .catch((e) => alert(e))
       .finally(() => setIsLoading(false))
     window.scrollTo(0, 0)
-  }, [currentCategory, currentSort, search, currentPage])
-  const handleCategoryChange = (category) => {
-    dispatch(changeCategory(category))
-  }
+  }, [category, sort, search, currentPage])
   const handleCurrentPageChange = (page) => {
     setCurrentPage(page)
   }
@@ -56,7 +49,7 @@ const Home = () => {
   return (
     <div className="container">
       <div className="content__top">
-        <Categories items={categories} current={currentCategory} onChange={handleCategoryChange} />
+        <Categories />
         <Sort />
       </div>
       <h2 className="content__title">Все пиццы</h2>
