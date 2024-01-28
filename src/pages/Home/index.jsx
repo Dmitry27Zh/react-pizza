@@ -57,7 +57,7 @@ const Home = () => {
   return (
     <div className="container">
       <div className="content__top">
-        <Categories items={categories} current={currentCategory} onChange={handleCategoryChange} />
+        <Categories items={categories} onChange={handleCategoryChange} />
         <Sort items={sortOptions} current={currentSort} onChange={handleSortChange} />
       </div>
       <h2 className="content__title">Все пиццы</h2>
