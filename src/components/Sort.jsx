@@ -1,6 +1,8 @@
 import { useState } from 'react'
+import { useSelector } from 'react-redux'
 
-const Sort = ({ items, current, onChange }) => {
+const Sort = ({ current, onChange }) => {
+  const items = useSelector((state) => state.filter.sortOptions)
   const [isOpen, setIsOpen] = useState(false)
   const handleToggleClick = () => {
     setIsOpen((prevState) => !prevState)
