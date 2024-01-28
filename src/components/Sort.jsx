@@ -1,14 +1,16 @@
 import { useState } from 'react'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
+import { changeSort } from '../redux/slices/filter'
 
-const Sort = ({ current, onChange }) => {
-  const items = useSelector((state) => state.filter.sortOptions)
+const Sort = () => {
+  const { sortOptions, sort } = useSelector((state) => state.filter)
+  const dispatch = useDispatch()
   const [isOpen, setIsOpen] = useState(false)
   const handleToggleClick = () => {
     setIsOpen((prevState) => !prevState)
   }
-  const handleOptionClick = (option) => {
-    onChange(option)
+  const handleChange = (option) => {
+    dispatch(changeSort(option))
     setIsOpen(false)
   }
 
@@ -22,18 +24,18 @@ const Sort = ({ current, onChange }) => {
           />
         </svg>
         <b>Сортировка по:</b>
-        <span onClick={handleToggleClick}>{current.title}</span>
+        <span onClick={handleToggleClick}>{sort.title}</span>
       </div>
       {isOpen && (
         <div className="sort__popup">
           <ul>
-            {items.map((item) => (
+            {sortOptions.map((option) => (
               <li
-                key={item._id}
-                className={current._id === item._id ? 'active' : ''}
-                onClick={() => handleOptionClick(item)}
+                key={option._id}
+                className={sort._id === option._id ? 'active' : ''}
+                onClick={() => handleChange(option)}
               >
-                {item.title}
+                {option.title}
               </li>
             ))}
           </ul>

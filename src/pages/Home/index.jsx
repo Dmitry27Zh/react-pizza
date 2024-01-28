@@ -7,7 +7,7 @@ import { getUrl } from './utils'
 import categories from '../../assets/json/categories.json'
 import Pagination from '../../components/Pagination'
 import { AppContext } from '../../App'
-import { changeCategory, changeSort } from '../../redux/slices/filter'
+import { changeCategory } from '../../redux/slices/filter'
 
 const INITIAL_PAGE = 0
 const PAGE_COUNT = 4
@@ -49,9 +49,6 @@ const Home = () => {
   const handleCategoryChange = (category) => {
     dispatch(changeCategory(category))
   }
-  const handleSortChange = (sort) => {
-    dispatch(changeSort(sort))
-  }
   const handleCurrentPageChange = (page) => {
     setCurrentPage(page)
   }
@@ -60,7 +57,7 @@ const Home = () => {
     <div className="container">
       <div className="content__top">
         <Categories items={categories} current={currentCategory} onChange={handleCategoryChange} />
-        <Sort current={currentSort} onChange={handleSortChange} />
+        <Sort />
       </div>
       <h2 className="content__title">Все пиццы</h2>
       <div className="content__items">
