@@ -7,11 +7,14 @@ import categories from '../../assets/json/categories.json'
 import sortOptions from '../../assets/json/sort.json'
 import Pagination from '../../components/Pagination'
 
+const INITIAL_PAGE = 0
+
 const Home = ({ search }) => {
   const [currentCategory, setCurrentCategory] = useState(categories[0]._id)
   const [currentSort, setCurrentSort] = useState(sortOptions[0])
   const [items, setItems] = useState([])
   const [isLoading, setIsLoading] = useState(true)
+  const [currentPage, setCurrentPage] = useState(INITIAL_PAGE)
   useEffect(() => {
     setIsLoading(true)
     fetch(
@@ -20,6 +23,8 @@ const Home = ({ search }) => {
         sortBy: currentSort.value,
         order: 'desc',
         search: search.trim(),
+        page: currentPage + 1,
+        limit: 2,
       })
     )
       .then((res) => {
@@ -35,12 +40,15 @@ const Home = ({ search }) => {
       .catch((e) => alert(e))
       .finally(() => setIsLoading(false))
     window.scrollTo(0, 0)
-  }, [currentCategory, currentSort, search])
+  }, [currentCategory, currentSort, search, currentPage])
   const handleCategoryChange = (category) => {
     setCurrentCategory(category)
   }
   const handleSortChange = (sort) => {
     setCurrentSort(sort)
+  }
+  const handleCurrentPageChange = (page) => {
+    setCurrentPage(page)
   }
 
   return (
@@ -53,7 +61,7 @@ const Home = ({ search }) => {
       <div className="content__items">
         <Items isLoading={isLoading} items={items} />
       </div>
-      <Pagination />
+      <Pagination initial={INITIAL_PAGE} onChange={handleCurrentPageChange} />
     </div>
   )
 }
