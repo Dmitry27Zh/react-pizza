@@ -8,7 +8,7 @@ import categories from '../../assets/json/categories.json'
 import sortOptions from '../../assets/json/sort.json'
 import Pagination from '../../components/Pagination'
 import { AppContext } from '../../App'
-import { changeCategory } from '../../redux/slices/filterSlice'
+import { changeCategory } from '../../redux/slices/filter'
 
 const INITIAL_PAGE = 0
 const PAGE_COUNT = 4
