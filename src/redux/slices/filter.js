@@ -5,6 +5,7 @@ import sortOptions from '../../assets/json/sort.json'
 const initialState = {
   category: categories[0]._id,
   sort: sortOptions[0],
+  categories,
   sortOptions,
 }
 
