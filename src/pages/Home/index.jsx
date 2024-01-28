@@ -8,6 +8,7 @@ import sortOptions from '../../assets/json/sort.json'
 import Pagination from '../../components/Pagination'
 
 const INITIAL_PAGE = 0
+const PAGE_COUNT = 4
 
 const Home = ({ search }) => {
   const [currentCategory, setCurrentCategory] = useState(categories[0]._id)
@@ -24,7 +25,7 @@ const Home = ({ search }) => {
         order: 'desc',
         search: search.trim(),
         page: currentPage + 1,
-        limit: 2,
+        limit: 3,
       })
     )
       .then((res) => {
@@ -61,7 +62,7 @@ const Home = ({ search }) => {
       <div className="content__items">
         <Items isLoading={isLoading} items={items} />
       </div>
-      <Pagination initial={INITIAL_PAGE} onChange={handleCurrentPageChange} />
+      <Pagination initial={INITIAL_PAGE} onChange={handleCurrentPageChange} count={PAGE_COUNT} />
     </div>
   )
 }
