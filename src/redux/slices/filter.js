@@ -7,6 +7,7 @@ const initialState = {
   sort: sortOptions[0],
   categories,
   sortOptions,
+  page: 0,
 }
 
 export const counterSlice = createSlice({
@@ -19,9 +20,12 @@ export const counterSlice = createSlice({
     changeSort: (state, action) => {
       state.sort = action.payload
     },
+    changePage: (state, action) => {
+      state.page = action.payload
+    },
   },
 })
 
-export const { changeCategory, changeSort } = counterSlice.actions
+export const { changeCategory, changeSort, changePage } = counterSlice.actions
 
 export default counterSlice.reducer
