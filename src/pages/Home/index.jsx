@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import Categories from '../../components/Categories'
 import Sort from '../../components/Sort'
 import Items from '../../components/Items'
@@ -6,11 +6,13 @@ import { getUrl } from './utils'
 import categories from '../../assets/json/categories.json'
 import sortOptions from '../../assets/json/sort.json'
 import Pagination from '../../components/Pagination'
+import { AppContext } from '../../App'
 
 const INITIAL_PAGE = 0
 const PAGE_COUNT = 4
 
-const Home = ({ search }) => {
+const Home = () => {
+  const { search } = useContext(AppContext)
   const [currentCategory, setCurrentCategory] = useState(categories[0]._id)
   const [currentSort, setCurrentSort] = useState(sortOptions[0])
   const [items, setItems] = useState([])

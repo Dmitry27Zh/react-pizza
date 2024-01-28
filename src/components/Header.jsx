@@ -1,8 +1,12 @@
 import { Link } from 'react-router-dom'
 import logoIcon from '../assets/img/icons/pizza-logo.svg'
 import Search from './Search'
+import { useContext } from 'react'
+import { AppContext } from '../App'
 
-const Header = ({ search, onSearch }) => {
+const Header = () => {
+  const { search, handleSearch } = useContext(AppContext)
+
   return (
     <div className="header">
       <div className="container">
@@ -13,7 +17,7 @@ const Header = ({ search, onSearch }) => {
             <p>самая вкусная пицца во вселенной</p>
           </div>
         </Link>
-        <Search value={search} onInput={onSearch} />
+        <Search value={search} onInput={handleSearch} />
         <div className="header__cart">
           <Link to="/cart" className="button button--cart">
             <span>520 ₽</span>
