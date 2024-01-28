@@ -1,5 +1,6 @@
 import { useContext, useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
+import axios from 'axios'
 import Categories from '../../components/Categories'
 import Sort from '../../components/Sort'
 import Items from '../../components/Items'
@@ -18,26 +19,18 @@ const Home = () => {
   const [currentPage, setCurrentPage] = useState(INITIAL_PAGE)
   useEffect(() => {
     setIsLoading(true)
-    fetch(
-      getUrl({
-        category,
-        sortBy: sort.value,
-        order: 'desc',
-        search: search.trim(),
-        page: currentPage + 1,
-        limit: 3,
-      })
-    )
-      .then((res) => {
-        if (res.ok) {
-          return res.json()
-        } else if (res.status === 404) {
-          return []
-        } else {
-          throw new Error(res.statusText)
-        }
-      })
-      .then((data) => setItems(data))
+    axios
+      .get(
+        getUrl({
+          category,
+          sortBy: sort.value,
+          order: 'desc',
+          search: search.trim(),
+          page: currentPage + 1,
+          limit: 3,
+        })
+      )
+      .then((res) => setItems(res.data))
       .catch((e) => alert(e))
       .finally(() => setIsLoading(false))
     window.scrollTo(0, 0)
