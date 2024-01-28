@@ -1,8 +1,12 @@
 import styles from './Search.module.scss'
+import debounce from 'lodash.debounce'
+
+const test = debounce(() => console.log('Hi'), 1000)
 
 const Search = ({ value, onInput }) => {
   const handleChange = (e) => {
     onInput(e.target.value)
+    test()
   }
   return (
     <div className={styles.root}>

@@ -31,7 +31,13 @@ const Home = () => {
         })
       )
       .then((res) => setItems(res.data))
-      .catch((e) => alert(e))
+      .catch((e) => {
+        if (e.response.status === 404) {
+          setItems([])
+        } else {
+          alert(e)
+        }
+      })
       .finally(() => setIsLoading(false))
     window.scrollTo(0, 0)
   }, [category, sort, search, currentPage])
