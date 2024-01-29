@@ -6,15 +6,13 @@ import Sort from '../../components/Sort'
 import Items from '../../components/Items'
 import { getUrl } from './utils'
 import Pagination from '../../components/Pagination'
-import { AppContext } from '../../App'
 import { changePage } from '../../redux/slices/filter'
 import { useNavigate } from 'react-router-dom'
 
 const PAGE_COUNT = 4
 
 const Home = () => {
-  const { search } = useContext(AppContext)
-  const { category, sort, page } = useSelector((state) => state.filter)
+  const { category, sort, page, search } = useSelector((state) => state.filter)
   const [items, setItems] = useState([])
   const [isLoading, setIsLoading] = useState(true)
   const dispatch = useDispatch()
@@ -25,7 +23,7 @@ const Home = () => {
       category,
       sortBy: sort.value,
       order: 'desc',
-      search: search.trim(),
+      search: search.trim() || null,
       page: page + 1,
       limit: 3,
     })

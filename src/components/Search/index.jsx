@@ -1,12 +1,16 @@
 import { useCallback, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import styles from './Search.module.scss'
 import debounce from 'lodash.debounce'
+import { changeSearch } from '../../redux/slices/filter'
 
-const Search = ({ value, onInput }) => {
-  const [current, setCurrent] = useState(value)
+const Search = () => {
+  const { search } = useSelector((state) => state.filter)
+  const dispatch = useDispatch()
+  const [current, setCurrent] = useState(search)
   const handleChange = useCallback(
     debounce((change) => {
-      onInput(change)
+      dispatch(changeSearch(change))
     }, 1000),
     []
   )
@@ -19,7 +23,7 @@ const Search = ({ value, onInput }) => {
         value={current}
         onChange={(e) => {
           setCurrent(e.target.value)
-          handleChange(current)
+          handleChange(e.target.value)
         }}
       />
       <svg
