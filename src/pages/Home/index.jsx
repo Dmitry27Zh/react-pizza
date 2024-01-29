@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import axios from 'axios'
 import Categories from '../../components/Categories'
@@ -6,8 +6,9 @@ import Sort from '../../components/Sort'
 import Items from '../../components/Items'
 import { getUrl } from './utils'
 import Pagination from '../../components/Pagination'
-import { changePage } from '../../redux/slices/filter'
+import { changePage, changeFilters } from '../../redux/slices/filter'
 import { useNavigate } from 'react-router-dom'
+import sortOptions from '../../assets/json/sort.json'
 
 const PAGE_COUNT = 4
 
@@ -17,6 +18,17 @@ const Home = () => {
   const [isLoading, setIsLoading] = useState(true)
   const dispatch = useDispatch()
   const navigate = useNavigate()
+  useEffect(() => {
+    const searchParams = new URLSearchParams(window.location.search)
+    const sort = sortOptions.find((current) => current.value === searchParams.get('sortBy'))
+    const params = {
+      category: Number(searchParams.get('category')) || null,
+      sort: sort ?? sortOptions[0],
+      page: Number(searchParams.get('page')) - 1,
+      search: searchParams.get('search') ?? '',
+    }
+    dispatch(changeFilters(params))
+  }, [])
   useEffect(() => {
     setIsLoading(true)
     const url = getUrl({

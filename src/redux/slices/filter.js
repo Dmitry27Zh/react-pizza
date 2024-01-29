@@ -27,9 +27,12 @@ export const counterSlice = createSlice({
     changeSearch: (state, action) => {
       state.search = action.payload
     },
+    changeFilters: (state, action) => {
+      Object.assign(state, action.payload)
+    },
   },
 })
 
-export const { changeCategory, changeSort, changePage, changeSearch } = counterSlice.actions
+export const { changeCategory, changeSort, changePage, changeSearch, changeFilters } = counterSlice.actions
 
 export default counterSlice.reducer
