@@ -8,6 +8,7 @@ import { getUrl } from './utils'
 import Pagination from '../../components/Pagination'
 import { AppContext } from '../../App'
 import { changePage } from '../../redux/slices/filter'
+import { useNavigate } from 'react-router-dom'
 
 const PAGE_COUNT = 4
 
@@ -17,19 +18,20 @@ const Home = () => {
   const [items, setItems] = useState([])
   const [isLoading, setIsLoading] = useState(true)
   const dispatch = useDispatch()
+  const navigate = useNavigate()
   useEffect(() => {
     setIsLoading(true)
+    const url = getUrl({
+      category,
+      sortBy: sort.value,
+      order: 'desc',
+      search: search.trim(),
+      page: page + 1,
+      limit: 3,
+    })
+    navigate(url.search)
     axios
-      .get(
-        getUrl({
-          category,
-          sortBy: sort.value,
-          order: 'desc',
-          search: search.trim(),
-          page: page + 1,
-          limit: 3,
-        })
-      )
+      .get(url)
       .then((res) => setItems(res.data))
       .catch((e) => {
         if (e.response.status === 404) {
