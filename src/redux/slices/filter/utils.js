@@ -31,9 +31,7 @@ const getPageParam = (params, count, start) => {
 
   if (isUnknown) {
     console.warn('Unknown page')
-  }
-
-  if (isNotExist) {
+  } else if (isNotExist) {
     console.warn("Page doesn't exist")
   }
 
