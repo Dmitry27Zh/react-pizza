@@ -1,13 +1,13 @@
 import { createSlice } from '@reduxjs/toolkit'
-import categories from '../../assets/json/categories.json'
-import sortOptions from '../../assets/json/sort.json'
+import categories from '../../../assets/json/categories.json'
+import sortOptions from '../../../assets/json/sort.json'
 
 const initialState = {
   category: categories[0]._id,
   sort: sortOptions[0],
   categories,
   sortOptions,
-  page: 0,
+  page: 1,
   search: '',
 }
 

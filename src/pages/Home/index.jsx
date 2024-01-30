@@ -8,35 +8,26 @@ import { getUrl } from './utils'
 import Pagination from '../../components/Pagination'
 import { changePage, changeFilters } from '../../redux/slices/filter'
 import { useNavigate } from 'react-router-dom'
-import sortOptions from '../../assets/json/sort.json'
-
-const PAGE_COUNT = 4
+import { getFilterParams } from '../../redux/slices/filter/utils'
+import { Page } from '../../redux/slices/filter/const'
 
 const Home = () => {
-  const { category, sort, page, search } = useSelector((state) => state.filter)
+  const { categories, sortOptions, category, sort, page, search } = useSelector((state) => state.filter)
   const [items, setItems] = useState([])
   const [isLoading, setIsLoading] = useState(true)
   const dispatch = useDispatch()
   const navigate = useNavigate()
   useEffect(() => {
-    const searchParams = new URLSearchParams(window.location.search)
-    const sort = sortOptions.find((current) => current.value === searchParams.get('sortBy'))
-    const params = {
-      category: Number(searchParams.get('category')) || null,
-      sort: sort ?? sortOptions[0],
-      page: Number(searchParams.get('page')) - 1,
-      search: searchParams.get('search') ?? '',
-    }
-    dispatch(changeFilters(params))
+    dispatch(changeFilters(getFilterParams(categories, sortOptions)))
   }, [])
-  useEffect(() => {
+  const fetchPizzas = () => {
     setIsLoading(true)
     const url = getUrl({
       category,
       sortBy: sort.value,
       order: 'desc',
       search: search.trim() || null,
-      page: page + 1,
+      page,
       limit: 3,
     })
     navigate(url.search)
@@ -51,6 +42,9 @@ const Home = () => {
         }
       })
       .finally(() => setIsLoading(false))
+  }
+  useEffect(() => {
+    fetchPizzas()
     window.scrollTo(0, 0)
   }, [category, sort, search, page])
   const handleCurrentPageChange = (page) => {
@@ -67,7 +61,7 @@ const Home = () => {
       <div className="content__items">
         <Items isLoading={isLoading} items={items} />
       </div>
-      <Pagination current={page} onChange={handleCurrentPageChange} count={PAGE_COUNT} />
+      <Pagination current={page} onChange={handleCurrentPageChange} count={Page.COUNT} />
     </div>
   )
 }
