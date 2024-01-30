@@ -12,7 +12,15 @@ import { getFilterParams } from '../../redux/slices/filter/utils'
 import { Page } from '../../redux/slices/filter/const'
 
 const Home = () => {
-  const { categories, sortOptions, category, sort, page, search } = useSelector((state) => state.filter)
+  const {
+    loaded: filtersLoaded,
+    categories,
+    sortOptions,
+    category,
+    sort,
+    page,
+    search,
+  } = useSelector((state) => state.filter)
   const [items, setItems] = useState([])
   const [isLoading, setIsLoading] = useState(true)
   const dispatch = useDispatch()
@@ -44,7 +52,9 @@ const Home = () => {
       .finally(() => setIsLoading(false))
   }
   useEffect(() => {
-    fetchPizzas()
+    if (filtersLoaded) {
+      fetchPizzas()
+    }
     window.scrollTo(0, 0)
   }, [category, sort, search, page])
   const handleCurrentPageChange = (page) => {

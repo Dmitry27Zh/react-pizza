@@ -9,6 +9,7 @@ const initialState = {
   sortOptions,
   page: 1,
   search: '',
+  loaded: false,
 }
 
 export const counterSlice = createSlice({
@@ -29,6 +30,7 @@ export const counterSlice = createSlice({
     },
     changeFilters: (state, action) => {
       Object.assign(state, action.payload)
+      state.loaded = true
     },
   },
 })
