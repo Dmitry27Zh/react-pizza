@@ -5,7 +5,7 @@ const getCategoryParams = (params, categories) => {
   const value = params.get('category')
   const result = Number(value)
   const isUnknown = value == null
-  const isNotExist = categories.every((category) => category.id !== result)
+  const isNotExist = categories.every((category) => category._id !== result)
   const isReset = isUnknown || isNotExist
 
   if (isUnknown) {
