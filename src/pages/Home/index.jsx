@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import axios from 'axios'
 import Categories from '../../components/Categories'
@@ -6,14 +6,14 @@ import Sort from '../../components/Sort'
 import Items from '../../components/Items'
 import { getUrl } from './utils'
 import Pagination from '../../components/Pagination'
-import { changePage, changeFilters } from '../../redux/slices/filter'
+import { changePage, initFilters } from '../../redux/slices/filter'
 import { useNavigate } from 'react-router-dom'
 import { getFilterParams } from '../../redux/slices/filter/utils'
 import { Page } from '../../redux/slices/filter/const'
 
 const Home = () => {
   const {
-    loaded: filtersLoaded,
+    inited: filtersInited,
     categories,
     sortOptions,
     category,
@@ -25,8 +25,11 @@ const Home = () => {
   const [isLoading, setIsLoading] = useState(true)
   const dispatch = useDispatch()
   const navigate = useNavigate()
+  const isMounted = useRef(false)
   useEffect(() => {
-    dispatch(changeFilters(getFilterParams(categories, sortOptions)))
+    const hasFilters = !!window.location.search
+    const params = hasFilters ? getFilterParams(categories, sortOptions) : null
+    dispatch(initFilters(params))
   }, [])
   const fetchPizzas = () => {
     setIsLoading(true)
@@ -38,7 +41,10 @@ const Home = () => {
       page,
       limit: 3,
     })
-    navigate(url.search)
+    if (isMounted.current) {
+      navigate(url.search)
+    }
+    isMounted.current = true
     axios
       .get(url)
       .then((res) => setItems(res.data))
@@ -50,13 +56,17 @@ const Home = () => {
         }
       })
       .finally(() => setIsLoading(false))
+
+    return () => {
+      isMounted.current = false
+    }
   }
   useEffect(() => {
-    if (filtersLoaded) {
+    if (filtersInited) {
       fetchPizzas()
     }
     window.scrollTo(0, 0)
-  }, [category, sort, search, page])
+  }, [category, sort, search, page, filtersInited])
   const handleCurrentPageChange = (page) => {
     dispatch(changePage(page))
   }

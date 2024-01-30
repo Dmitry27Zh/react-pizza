@@ -9,7 +9,7 @@ const initialState = {
   sortOptions,
   page: 1,
   search: '',
-  loaded: false,
+  inited: false,
 }
 
 export const counterSlice = createSlice({
@@ -28,13 +28,18 @@ export const counterSlice = createSlice({
     changeSearch: (state, action) => {
       state.search = action.payload
     },
+    initFilters: (state, action) => {
+      if (action.payload) {
+        counterSlice.caseReducers.changeFilters(state, action)
+      }
+      state.inited = true
+    },
     changeFilters: (state, action) => {
       Object.assign(state, action.payload)
-      state.loaded = true
     },
   },
 })
 
-export const { changeCategory, changeSort, changePage, changeSearch, changeFilters } = counterSlice.actions
+export const { changeCategory, changeSort, changePage, changeSearch, changeFilters, initFilters } = counterSlice.actions
 
 export default counterSlice.reducer
