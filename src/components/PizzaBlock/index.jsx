@@ -2,27 +2,32 @@ import { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { addItem } from '../../redux/slices/cart'
 
-const Types = {
+const Type = {
   0: {
+    _id: 0,
     title: 'Тонкое',
     price: 0,
   },
   1: {
+    _id: 1,
     title: 'Традиционное',
     price: 20,
   },
 }
 
-const Sizes = {
+const Size = {
   26: {
+    _id: 26,
     title: '26',
     price: 50,
   },
   30: {
+    _id: 30,
     title: '30',
     price: 100,
   },
   40: {
+    _id: 40,
     title: '40',
     price: 100,
   },
@@ -30,17 +35,17 @@ const Sizes = {
 
 const PizzaBlock = ({ _id, title, price, imageUrl, sizes, types }) => {
   const [count, setCount] = useState(0)
-  const [activeType, setActiveType] = useState(types[0])
-  const [activeSize, setActiveSize] = useState(sizes[0])
+  const [activeType, setActiveType] = useState(Type[types[0]])
+  const [activeSize, setActiveSize] = useState(Size[sizes[0]])
   const dispatch = useDispatch()
   const handleAddClick = () => {
     setCount((prevState) => prevState + 1)
     const item = {
       _id,
-      type: activeType,
-      size: activeSize,
+      type: activeType._id,
+      size: activeSize._id,
     }
-    dispatch(addItem(item))
+    dispatch(addItem({ item }))
   }
   const handleTypeClick = (type) => {
     setActiveType(type)
@@ -55,18 +60,34 @@ const PizzaBlock = ({ _id, title, price, imageUrl, sizes, types }) => {
       <h4 className="pizza-block__title">{title}</h4>
       <div className="pizza-block__selector">
         <ul>
-          {types.map((type) => (
-            <li key={type} className={type === activeType ? 'active' : ''} onClick={() => handleTypeClick(type)}>
-              {Types[type].title}
-            </li>
-          ))}
+          {types.map((type) => {
+            const typeFull = Type[type]
+
+            return (
+              <li
+                key={type}
+                className={type === activeType._id ? 'active' : ''}
+                onClick={() => handleTypeClick(typeFull)}
+              >
+                {typeFull.title}
+              </li>
+            )
+          })}
         </ul>
         <ul>
-          {sizes.map((size) => (
-            <li key={size} className={size === activeSize ? 'active' : ''} onClick={() => handleSizeClick(size)}>
-              {Sizes[size].title} см.
-            </li>
-          ))}
+          {sizes.map((size) => {
+            const sizeFull = Size[size]
+
+            return (
+              <li
+                key={size}
+                className={size === activeSize._id ? 'active' : ''}
+                onClick={() => handleSizeClick(sizeFull)}
+              >
+                {sizeFull.title} см.
+              </li>
+            )
+          })}
         </ul>
       </div>
       <div className="pizza-block__bottom">
