@@ -5,7 +5,7 @@ const Items = ({ items, isLoading }) => {
   if (isLoading) {
     return [...Array(10)].map((_, index) => <Skeleton key={index} />)
   } else {
-    return items.map(({ _id, ...rest }) => <PizzaBlock key={_id} {...rest} />)
+    return items.map((item) => <PizzaBlock key={item._id} {...item} />)
   }
 }
 
