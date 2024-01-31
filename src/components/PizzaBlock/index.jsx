@@ -16,9 +16,6 @@ const PizzaBlock = ({ _id, title, price, imageUrl, sizes, types }) => {
     setCount((prevState) => prevState + 1)
     const item = {
       _id,
-      title,
-      price,
-      imageUrl,
       type: activeType,
       size: activeSize,
     }
