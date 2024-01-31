@@ -3,8 +3,29 @@ import { useDispatch } from 'react-redux'
 import { addItem } from '../../redux/slices/cart'
 
 const Types = {
-  0: 'Тонкое',
-  1: 'Традиционное',
+  0: {
+    title: 'Тонкое',
+    price: 0,
+  },
+  1: {
+    title: 'Традиционное',
+    price: 20,
+  },
+}
+
+const Sizes = {
+  26: {
+    title: '26',
+    price: 50,
+  },
+  30: {
+    title: '30',
+    price: 100,
+  },
+  40: {
+    title: '40',
+    price: 100,
+  },
 }
 
 const PizzaBlock = ({ _id, title, price, imageUrl, sizes, types }) => {
@@ -36,20 +57,20 @@ const PizzaBlock = ({ _id, title, price, imageUrl, sizes, types }) => {
         <ul>
           {types.map((type) => (
             <li key={type} className={type === activeType ? 'active' : ''} onClick={() => handleTypeClick(type)}>
-              {Types[type]}
+              {Types[type].title}
             </li>
           ))}
         </ul>
         <ul>
           {sizes.map((size) => (
             <li key={size} className={size === activeSize ? 'active' : ''} onClick={() => handleSizeClick(size)}>
-              {size} см.
+              {Sizes[size].title} см.
             </li>
           ))}
         </ul>
       </div>
       <div className="pizza-block__bottom">
-        <div className="pizza-block__price">от {price} ₽</div>
+        <div className="pizza-block__price">{price} ₽</div>
         <button className="button button--outline button--add" onClick={handleAddClick}>
           <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path
