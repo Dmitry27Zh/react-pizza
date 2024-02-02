@@ -56,7 +56,7 @@ const PizzaBlock = ({ _id, title, price, imageUrl, sizes, types }) => {
                 className={size === activeSize._id ? 'active' : ''}
                 onClick={() => handleSizeClick(sizeFull)}
               >
-                {sizeFull.title} см.
+                {sizeFull.title}
               </li>
             )
           })}

@@ -42,7 +42,8 @@ const Home = () => {
       limit: 3,
     })
     if (isMounted.current) {
-      navigate(searchParams)
+      console.log(searchParams.toString())
+      navigate(`?${searchParams}`)
     }
     isMounted.current = true
     api.items
