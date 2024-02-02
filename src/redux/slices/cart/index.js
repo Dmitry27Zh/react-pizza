@@ -1,5 +1,4 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { codeCartItemParams, decodeCartItemParams } from './utils'
 
 const initialState = {
   items: {},
@@ -12,8 +11,7 @@ const slice = createSlice({
   initialState,
   reducers: {
     addItem: (state, action) => {
-      const { item, price } = action.payload
-      const key = codeCartItemParams(item)
+      const { key, price } = action.payload
       const isExist = key in state.items
 
       if (isExist) {
@@ -23,16 +21,6 @@ const slice = createSlice({
         state.items[key] = { count, price, total }
       } else {
         state.items[key] = { count: 1, price, total: price }
-      }
-    },
-    getItem: (state, action) => {
-      const key = codeCartItemParams(action.payload)
-      const isExist = key in state.items
-
-      if (isExist) {
-        return state.items[key]
-      } else {
-        return null
       }
     },
     removeItem: (state, action) => {
