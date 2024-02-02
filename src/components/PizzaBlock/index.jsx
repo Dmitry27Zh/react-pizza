@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { addItem } from '../../redux/slices/cart'
-import { Type, Size, BASE_CART_ITEM } from './const'
+import { Type, Size, BASE_CART_ITEM } from '../../const'
 import { codeCartItemParams } from '../../redux/slices/cart/utils'
 
 const PizzaBlock = ({ _id, title, price, imageUrl, sizes, types }) => {
