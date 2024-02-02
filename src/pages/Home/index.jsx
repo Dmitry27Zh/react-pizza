@@ -42,13 +42,12 @@ const Home = () => {
       limit: 3,
     })
     if (isMounted.current) {
-      console.log(searchParams.toString())
       navigate(`?${searchParams}`)
     }
     isMounted.current = true
     api.items
       .fetchAll(searchParams)
-      .then((res) => setItems(res.data))
+      .then((data) => setItems(data))
       .catch((e) => {
         if (e.response.status === 404) {
           setItems([])
