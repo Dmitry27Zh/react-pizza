@@ -17,7 +17,10 @@ const slice = createSlice({
       const isExist = key in state.items
 
       if (isExist) {
-        console.warn('Item is already in the cart')
+        let { count, price, total } = state.items[key]
+        count++
+        total += price
+        state.items[key] = { count, price, total }
       } else {
         state.items[key] = { count: 1, price, total: price }
       }

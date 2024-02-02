@@ -1,51 +1,30 @@
 import { useState } from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { addItem } from '../../redux/slices/cart'
-
-const Type = {
-  0: {
-    _id: 0,
-    title: 'Тонкое',
-    price: 0,
-  },
-  1: {
-    _id: 1,
-    title: 'Традиционное',
-    price: 20,
-  },
-}
-
-const Size = {
-  26: {
-    _id: 26,
-    title: '26',
-    price: 50,
-  },
-  30: {
-    _id: 30,
-    title: '30',
-    price: 100,
-  },
-  40: {
-    _id: 40,
-    title: '40',
-    price: 100,
-  },
-}
+import { codeCartItemParams } from '../../redux/slices/cart/utils'
+import { Type, Size, BASE_CART_ITEM } from './const'
 
 const PizzaBlock = ({ _id, title, price, imageUrl, sizes, types }) => {
-  const [count, setCount] = useState(0)
   const [activeType, setActiveType] = useState(Type[types[0]])
   const [activeSize, setActiveSize] = useState(Size[sizes[0]])
+  const { items } = useSelector((state) => state.cart)
+  const fullPrice = price + activeType.price + activeSize.price
+  const { count } =
+    items[
+      codeCartItemParams({
+        _id,
+        type: activeType._id,
+        size: activeSize._id,
+      })
+    ] ?? BASE_CART_ITEM
   const dispatch = useDispatch()
   const handleAddClick = () => {
-    setCount((prevState) => prevState + 1)
     const item = {
       _id,
       type: activeType._id,
       size: activeSize._id,
     }
-    dispatch(addItem({ item }))
+    dispatch(addItem({ item, price: fullPrice }))
   }
   const handleTypeClick = (type) => {
     setActiveType(type)
@@ -91,7 +70,7 @@ const PizzaBlock = ({ _id, title, price, imageUrl, sizes, types }) => {
         </ul>
       </div>
       <div className="pizza-block__bottom">
-        <div className="pizza-block__price">{price} ₽</div>
+        <div className="pizza-block__price">{fullPrice} ₽</div>
         <button className="button button--outline button--add" onClick={handleAddClick}>
           <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path
