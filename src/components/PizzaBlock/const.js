@@ -14,17 +14,17 @@ export const Type = {
 export const Size = {
   26: {
     _id: 26,
-    title: '26',
+    title: '26 см.',
     price: 50,
   },
   30: {
     _id: 30,
-    title: '30',
+    title: '30 см.',
     price: 100,
   },
   40: {
     _id: 40,
-    title: '40',
+    title: '40 см.',
     price: 120,
   },
 }
