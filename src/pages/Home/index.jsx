@@ -1,10 +1,10 @@
 import { useEffect, useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import axios from 'axios'
+import api from '../../api/'
 import Categories from '../../components/Categories'
 import Sort from '../../components/Sort'
 import Items from '../../components/Items'
-import { getUrl } from './utils'
+import { getSearchParams } from './utils'
 import Pagination from '../../components/Pagination'
 import { changePage, initFilters } from '../../redux/slices/filter'
 import { useNavigate } from 'react-router-dom'
@@ -33,7 +33,7 @@ const Home = () => {
   }, [])
   const fetchPizzas = () => {
     setIsLoading(true)
-    const url = getUrl({
+    const searchParams = getSearchParams({
       category,
       sortBy: sort.value,
       order: 'desc',
@@ -42,11 +42,11 @@ const Home = () => {
       limit: 3,
     })
     if (isMounted.current) {
-      navigate(url.search)
+      navigate(searchParams)
     }
     isMounted.current = true
-    axios
-      .get(url)
+    api.items
+      .fetchAll(searchParams)
       .then((res) => setItems(res.data))
       .catch((e) => {
         if (e.response.status === 404) {
