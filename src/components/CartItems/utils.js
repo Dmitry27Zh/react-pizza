@@ -10,7 +10,7 @@ export const getItemsData = (items) => {
 
       return api.items
         .getById(Number(_id))
-        .then((itemData) => ({ ...item, ...itemData, type: Type[type].title, size: Size[size].title }))
+        .then((itemData) => ({ ...item, ...itemData, type: Type[type].title, size: Size[size].title, key }))
     })
   )
 }

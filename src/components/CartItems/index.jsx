@@ -52,7 +52,7 @@ const CartItems = () => {
           {!isLoading && <CartClear />}
         </div>
         <div className="content__items">
-          {isLoading ? 'Loading...' : itemsData.map((item) => <CartItem key={item._id} {...item} />)}
+          {isLoading ? 'Loading...' : itemsData.map((item) => <CartItem key={item.key} {...item} />)}
         </div>
         {!isLoading && <CartBottom count={count} total={total} />}
       </div>
