@@ -40,6 +40,6 @@ const slice = createSlice({
   },
 })
 
-export const { addItem, removeItem, clearItems } = slice.actions
+export const { addItem, increment, removeItem, clearItems } = slice.actions
 
 export default slice.reducer
