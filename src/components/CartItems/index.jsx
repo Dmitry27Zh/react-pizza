@@ -5,9 +5,10 @@ import CartEmpty from './CartEmpty'
 import CartClear from './CartClear'
 import CartBottom from './CartBottom'
 import { getItemsData } from './utils'
+import { selectCart } from '../../redux/slices/cart'
 
 const CartItems = () => {
-  const { items, count, total } = useSelector((state) => state.cart)
+  const { items, count, total } = useSelector(selectCart)
   const [itemsData, setItemsData] = useState(null)
   const isLoading = !itemsData
   const isEmpty = count === 0

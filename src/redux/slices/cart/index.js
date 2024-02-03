@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
+import { BASE_CART_ITEM } from '../../../const'
 
 const initialState = {
   items: {},
@@ -57,6 +58,9 @@ const slice = createSlice({
     },
   },
 })
+
+export const selectCart = (state) => state.cart
+export const selectCartItemByKey = (key) => (state) => selectCart(state).items[key] ?? BASE_CART_ITEM
 
 export const { addItem, increment, decrement, removeItem, clearItems } = slice.actions
 

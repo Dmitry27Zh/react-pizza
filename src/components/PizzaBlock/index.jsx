@@ -1,13 +1,13 @@
 import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { addItem } from '../../redux/slices/cart'
-import { Type, Size, BASE_CART_ITEM } from '../../const'
+import { Type, Size } from '../../const'
 import { codeCartItemParams } from '../../redux/slices/cart/utils'
+import { selectCartItemByKey } from '../../redux/slices/cart'
 
 const PizzaBlock = ({ _id, title, price, imageUrl, sizes, types }) => {
   const [activeType, setActiveType] = useState(Type[types[0]])
   const [activeSize, setActiveSize] = useState(Size[sizes[0]])
-  const { items } = useSelector((state) => state.cart)
   const dispatch = useDispatch()
   const key = codeCartItemParams({
     _id,
@@ -15,7 +15,7 @@ const PizzaBlock = ({ _id, title, price, imageUrl, sizes, types }) => {
     size: activeSize._id,
   })
   const fullPrice = price + activeType.price + activeSize.price
-  const { count } = items[key] ?? BASE_CART_ITEM
+  const { count } = useSelector(selectCartItemByKey(key))
   const handleAddClick = () => {
     dispatch(addItem({ key, price: fullPrice }))
   }
