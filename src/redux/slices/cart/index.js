@@ -32,10 +32,14 @@ const slice = createSlice({
       state.total += price
     },
     removeItem: (state, action) => {
-      state.items = state.items.filter((item) => item._id !== action.payload)
+      const { key } = action.payload
+      const { count, total } = state.items[key]
+      delete state.items[key]
+      state.count -= count
+      state.total -= total
     },
     clearItems: (state) => {
-      state.items = []
+      state.items = {}
     },
   },
 })

@@ -7,10 +7,10 @@ import CartBottom from './CartBottom'
 import { getItemsData } from './utils'
 
 const CartItems = () => {
-  const isEmpty = false
   const { items, count, total } = useSelector((state) => state.cart)
   const [itemsData, setItemsData] = useState(null)
   const isLoading = !itemsData
+  const isEmpty = count === 0
   useEffect(() => {
     getItemsData(items)
       .then((data) => setItemsData(data))
