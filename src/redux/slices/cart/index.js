@@ -22,6 +22,9 @@ const slice = createSlice({
       } else {
         state.items[key] = { count: 1, price, total: price }
       }
+
+      state.count++
+      state.total += price
     },
     removeItem: (state, action) => {
       state.items = state.items.filter((item) => item._id !== action.payload)
