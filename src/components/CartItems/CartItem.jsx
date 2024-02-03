@@ -1,11 +1,10 @@
 import { useDispatch } from 'react-redux'
 import { increment } from '../../redux/slices/cart'
 
-const CartItem = ({ key, title, type, size, count, total }) => {
+const CartItem = ({ cartKey, title, type, size, count, total }) => {
   const dispatch = useDispatch()
-  console.log(key)
   const handleAddClick = () => {
-    dispatch(increment({ key }))
+    dispatch(increment({ key: cartKey }))
   }
 
   return (
