@@ -1,15 +1,12 @@
 import { useEffect, useRef } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import Categories from '../../components/Categories'
-import Sort from '../../components/Sort'
-import Items from '../../components/Items'
 import { getSearchParams } from './utils'
-import Pagination from '../../components/Pagination'
-import { changePage, initFilters } from '../../redux/slices/filter'
+import { initFilters } from '../../redux/slices/filter'
 import { useNavigate } from 'react-router-dom'
 import { getFilterParams } from '../../redux/slices/filter/utils'
-import { Page } from '../../redux/slices/filter/const'
 import { fetchPizzas } from '../../redux/slices/pizzas/index'
+import Pizzas from '../../components/Pizzas'
+import Error from '../../components/Error'
 
 const Home = () => {
   const {
@@ -23,6 +20,7 @@ const Home = () => {
   } = useSelector((state) => state.filter)
   const { items, status } = useSelector((state) => state.pizzas)
   const isLoading = status === 'pending'
+  const isError = status === 'error'
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const isMounted = useRef(false)
@@ -56,22 +54,9 @@ const Home = () => {
     }
     window.scrollTo(0, 0)
   }, [category, sort, search, page, filtersInited])
-  const handleCurrentPageChange = (page) => {
-    dispatch(changePage(page))
-  }
 
   return (
-    <div className="container">
-      <div className="content__top">
-        <Categories />
-        <Sort />
-      </div>
-      <h2 className="content__title">Все пиццы</h2>
-      <div className="content__items">
-        <Items isLoading={isLoading} items={items} />
-      </div>
-      <Pagination current={page} onChange={handleCurrentPageChange} count={Page.COUNT} />
-    </div>
+    <div className="container">{isError ? <Error /> : <Pizzas isLoading={isLoading} items={items} page={page} />}</div>
   )
 }
 
