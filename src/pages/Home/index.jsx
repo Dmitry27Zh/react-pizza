@@ -1,6 +1,5 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import api from '../../api/'
 import Categories from '../../components/Categories'
 import Sort from '../../components/Sort'
 import Items from '../../components/Items'
@@ -10,7 +9,7 @@ import { changePage, initFilters } from '../../redux/slices/filter'
 import { useNavigate } from 'react-router-dom'
 import { getFilterParams } from '../../redux/slices/filter/utils'
 import { Page } from '../../redux/slices/filter/const'
-import { setItems } from '../../redux/slices/pizzas/index'
+import { fetchPizzas } from '../../redux/slices/pizzas/index'
 
 const Home = () => {
   const {
@@ -22,8 +21,8 @@ const Home = () => {
     page,
     search,
   } = useSelector((state) => state.filter)
-  const [items] = useState([])
-  const [isLoading, setIsLoading] = useState(true)
+  const { items, status } = useSelector((state) => state.pizzas)
+  const isLoading = status === 'pending'
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const isMounted = useRef(false)
@@ -32,8 +31,7 @@ const Home = () => {
     const params = hasFilters ? getFilterParams(categories, sortOptions) : null
     dispatch(initFilters(params))
   }, [])
-  const fetchPizzas = () => {
-    setIsLoading(true)
+  const fetch = () => {
     const searchParams = getSearchParams({
       category,
       sortBy: sort.value,
@@ -46,15 +44,7 @@ const Home = () => {
       navigate(`?${searchParams}`)
     }
     isMounted.current = true
-    api.items
-      .fetchAll(searchParams)
-      .then((data) => {
-        dispatch(setItems(data))
-      })
-      .catch((e) => {
-        alert(e)
-      })
-      .finally(() => setIsLoading(false))
+    dispatch(fetchPizzas(searchParams))
 
     return () => {
       isMounted.current = false
@@ -62,7 +52,7 @@ const Home = () => {
   }
   useEffect(() => {
     if (filtersInited) {
-      fetchPizzas()
+      fetch()
     }
     window.scrollTo(0, 0)
   }, [category, sort, search, page, filtersInited])
