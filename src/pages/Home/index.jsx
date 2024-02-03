@@ -10,6 +10,7 @@ import { changePage, initFilters } from '../../redux/slices/filter'
 import { useNavigate } from 'react-router-dom'
 import { getFilterParams } from '../../redux/slices/filter/utils'
 import { Page } from '../../redux/slices/filter/const'
+import { setItems } from '../../redux/slices/pizzas/index'
 
 const Home = () => {
   const {
@@ -21,7 +22,7 @@ const Home = () => {
     page,
     search,
   } = useSelector((state) => state.filter)
-  const [items, setItems] = useState([])
+  const [items] = useState([])
   const [isLoading, setIsLoading] = useState(true)
   const dispatch = useDispatch()
   const navigate = useNavigate()
@@ -47,13 +48,11 @@ const Home = () => {
     isMounted.current = true
     api.items
       .fetchAll(searchParams)
-      .then((data) => setItems(data))
+      .then((data) => {
+        dispatch(setItems(data))
+      })
       .catch((e) => {
-        if (e.response.status === 404) {
-          setItems([])
-        } else {
-          alert(e)
-        }
+        alert(e)
       })
       .finally(() => setIsLoading(false))
 
