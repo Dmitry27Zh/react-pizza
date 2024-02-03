@@ -31,6 +31,18 @@ const slice = createSlice({
       state.count++
       state.total += price
     },
+    decrement: (state, action) => {
+      const { key } = action.payload
+      let { count, price, total } = state.items[key]
+
+      if (count > 1) {
+        count--
+        total -= price
+        state.items[key] = { count, price, total }
+        state.count--
+        state.total -= price
+      }
+    },
     removeItem: (state, action) => {
       const { key } = action.payload
       const { count, total } = state.items[key]
@@ -46,6 +58,6 @@ const slice = createSlice({
   },
 })
 
-export const { addItem, increment, removeItem, clearItems } = slice.actions
+export const { addItem, increment, decrement, removeItem, clearItems } = slice.actions
 
 export default slice.reducer
