@@ -9,9 +9,13 @@ export const getItemsData = (items: CartItemsData): Promise<CartItems> => {
       const item = items[cartKey]
       const { _id, type, size } = decodeCartItemParams(cartKey)
 
-      return api.items
-        .getById(Number(_id))
-        .then((itemData) => ({ ...item, ...itemData, type: Type[type].title, size: Size[size].title, cartKey }))
+      return api.items.getById(Number(_id)).then((itemData) => {
+        if (itemData == null) {
+          throw new Error('Unknown item ID!')
+        } else {
+          return { ...item, ...itemData, type: Type[type].title, size: Size[size].title, cartKey }
+        }
+      })
     })
   )
 }

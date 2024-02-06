@@ -2,27 +2,19 @@ import { useEffect, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { getSearchParams } from './utils'
-import { initFilters } from '../../redux/slices/filter'
+import { initFilters, selectFilter } from '../../redux/slices/filter'
 import { getFilterParams } from '../../redux/slices/filter/utils'
-import { fetchPizzas } from '../../redux/slices/pizzas/index'
+import { fetchPizzas, selectPizzas } from '../../redux/slices/pizzas/index'
 import Pizzas from '../../components/Pizzas'
 import Error from '../../components/Error'
 import { PAGE_LIMIT } from '../../const'
 
 const Home = () => {
-  const {
-    inited: filtersInited,
-    categories,
-    sortOptions,
-    category,
-    sort,
-    page,
-    search,
-  } = useSelector((state) => state.filter)
-  const { items, status } = useSelector((state) => state.pizzas)
+  const { inited: filtersInited, categories, sortOptions, category, sort, page, search } = useSelector(selectFilter)
+  const { items, status } = useSelector(selectPizzas)
   const isLoading = status === 'pending'
   const isError = status === 'error'
-  const dispatch = useDispatch()
+  const dispatch = useDispatch<any>()
   const navigate = useNavigate()
   const isMounted = useRef(false)
   useEffect(() => {

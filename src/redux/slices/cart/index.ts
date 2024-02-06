@@ -1,7 +1,15 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { BASE_CART_ITEM } from '../../../const'
+import { CartItemsData, CartKey } from '../../../types'
+import { RootState } from '../../store'
 
-const initialState = {
+type CartState = {
+  items: CartItemsData
+  count: number
+  total: number
+}
+
+const initialState: CartState = {
   items: {},
   count: 0,
   total: 0,
@@ -59,8 +67,9 @@ const slice = createSlice({
   },
 })
 
-export const selectCart = (state) => state.cart
-export const selectCartItemByKey = (key) => (state) => selectCart(state).items[key] ?? BASE_CART_ITEM
+export const selectCart = (state: RootState) => state.cart
+export const selectCartItemByKey = (key: CartKey) => (state: RootState) =>
+  selectCart(state).items[key] ?? BASE_CART_ITEM
 
 export const { addItem, increment, decrement, removeItem, clearItems } = slice.actions
 

@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import api from '../../../api'
 import { Items } from '../../../types'
+import { RootState } from '../../store'
 
 type PizzasState = {
   items: Items
@@ -12,8 +13,8 @@ const initialState: PizzasState = {
   status: 'loading',
 }
 
-export const fetchPizzas = createAsyncThunk('pizzas/fetchPizzas', async (searchParams: string) => {
-  return api.items.fetchAll(searchParams)
+export const fetchPizzas = createAsyncThunk('pizzas/fetchPizzas', async (searchParams: URLSearchParams) => {
+  return api.items.fetchAll(searchParams.toString())
 })
 
 const slice = createSlice({
@@ -39,6 +40,8 @@ const slice = createSlice({
     })
   },
 })
+
+export const selectPizzas = (state: RootState) => state.pizzas
 
 export const { setItems } = slice.actions
 

@@ -18,13 +18,17 @@ export type CartKeyParams = {
 export type CartKey = string
 
 export type CartItem = {
+  count: number
+  total: number
+  price: number
+}
+
+export type CartItemExtra = {
   cartKey: CartKey
   title: Item['title']
   type: TypeData['title']
   size: SizeData['title']
-  count: number
-  total: number
-}
+} & CartItem
 
 export type Items = Item[]
 
@@ -32,7 +36,7 @@ export type CartItemsData = {
   [key: CartKey]: CartItem
 }
 
-export type CartItems = CartItem[]
+export type CartItems = CartItemExtra[]
 
 export type SearchParamsURL = string
 

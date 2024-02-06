@@ -1,10 +1,10 @@
 import { useEffect, useRef, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { changeSort } from '../redux/slices/filter'
+import { changeSort, selectFilter } from '../redux/slices/filter'
 import { SortOption } from '../types'
 
 const Sort = () => {
-  const { sortOptions, sort } = useSelector((state) => state.filter)
+  const { sortOptions, sort } = useSelector(selectFilter)
   const dispatch = useDispatch()
   const [isOpen, setIsOpen] = useState(false)
   const element = useRef<HTMLDivElement>(null)

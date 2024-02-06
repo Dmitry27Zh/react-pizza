@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux'
 import { selectCart } from '../redux/slices/cart'
 
 const Header = () => {
-  const { items, total } = useSelector(selectCart)
+  const { total, count } = useSelector(selectCart)
 
   return (
     <div className="header">
@@ -45,7 +45,7 @@ const Header = () => {
                 strokeLinejoin="round"
               />
             </svg>
-            <span>{items.length}</span>
+            <span>{count}</span>
           </Link>
         </div>
       </div>

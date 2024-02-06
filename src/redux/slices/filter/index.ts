@@ -2,6 +2,7 @@ import { createSlice } from '@reduxjs/toolkit'
 import categories from '../../../assets/json/categories.json'
 import sortOptions from '../../../assets/json/sort.json'
 import { Categories, CategoryId, SortOption, SortOptions } from '../../../types'
+import { RootState } from '../../store'
 
 type FilterState = {
   category: CategoryId
@@ -50,6 +51,8 @@ export const counterSlice = createSlice({
     },
   },
 })
+
+export const selectFilter = (state: RootState) => state.filter
 
 export const { changeCategory, changeSort, changePage, changeSearch, changeFilters, initFilters } = counterSlice.actions
 
