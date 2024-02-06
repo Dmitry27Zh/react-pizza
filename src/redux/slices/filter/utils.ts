@@ -1,7 +1,8 @@
+import { Categories, SortOptions } from '../../../types'
 import { Page } from './const'
 import pickBy from 'lodash.pickby'
 
-const getCategoryParams = (params, categories) => {
+const getCategoryParams = (params: URLSearchParams, categories: Categories) => {
   const value = params.get('category')
   const result = Number(value)
   const isUnknown = value == null
@@ -21,7 +22,7 @@ const getCategoryParams = (params, categories) => {
   }
 }
 
-const getPageParam = (params, count, start) => {
+const getPageParam = (params: URLSearchParams, count: number, start: number) => {
   const value = params.get('page')
   const result = Number(value)
   const end = start + count - 1
@@ -42,7 +43,7 @@ const getPageParam = (params, count, start) => {
   }
 }
 
-const getSortParam = (params, sortOptions) => {
+const getSortParam = (params: URLSearchParams, sortOptions: SortOptions) => {
   const value = params.get('sortBy')
   const result = sortOptions.find((current) => current.value === value)
   const isUnknown = result == null
@@ -55,7 +56,7 @@ const getSortParam = (params, sortOptions) => {
   }
 }
 
-const getSearchParams = (params) => {
+const getSearchParams = (params: URLSearchParams) => {
   const value = params.get('search')
   const isUnknown = value == null
 
@@ -67,7 +68,7 @@ const getSearchParams = (params) => {
   }
 }
 
-const getFilterParams = (categories, sortOptions) => {
+const getFilterParams = (categories: Categories, sortOptions: SortOptions) => {
   const searchParams = new URLSearchParams(window.location.search)
   const params = {
     category: getCategoryParams(searchParams, categories),

@@ -1,6 +1,11 @@
 import { Link } from 'react-router-dom'
 
-const CartBottom = ({ count, total }) => {
+type CartBottomProps = {
+  count: number
+  total: number
+}
+
+const CartBottom = ({ count, total }: CartBottomProps) => {
   return (
     <div className="cart__bottom">
       <div className="cart__bottom-details">

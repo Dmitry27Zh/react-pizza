@@ -4,10 +4,13 @@ import { addItem } from '../../redux/slices/cart'
 import { Type, Size } from '../../const'
 import { codeCartItemParams } from '../../redux/slices/cart/utils'
 import { selectCartItemByKey } from '../../redux/slices/cart'
+import { Item, SizeData, TypeData } from '../../types'
 
-const PizzaBlock = ({ _id, title, price, imageUrl, sizes, types }) => {
-  const [activeType, setActiveType] = useState(Type[types[0]])
-  const [activeSize, setActiveSize] = useState(Size[sizes[0]])
+type PizzaBlockProps = Item
+
+const PizzaBlock = ({ _id, title, price, imageUrl, sizes, types }: PizzaBlockProps) => {
+  const [activeType, setActiveType] = useState<TypeData>(Type[types[0]])
+  const [activeSize, setActiveSize] = useState<SizeData>(Size[sizes[0]])
   const dispatch = useDispatch()
   const key = codeCartItemParams({
     _id,
@@ -19,10 +22,10 @@ const PizzaBlock = ({ _id, title, price, imageUrl, sizes, types }) => {
   const handleAddClick = () => {
     dispatch(addItem({ key, price: fullPrice }))
   }
-  const handleTypeClick = (type) => {
+  const handleTypeClick = (type: TypeData) => {
     setActiveType(type)
   }
-  const handleSizeClick = (size) => {
+  const handleSizeClick = (size: SizeData) => {
     setActiveSize(size)
   }
 

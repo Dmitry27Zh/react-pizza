@@ -1,15 +1,22 @@
 import { useDispatch } from 'react-redux'
 import Categories from './Categories'
 import Sort from './Sort'
-import Items from './Items'
 import Pagination from './Pagination'
 import { Page } from '../redux/slices/filter/const'
 import { changePage } from '../redux/slices/filter'
+import { Items as ItemsType } from '../types'
+import Items from './Items'
 
-const Pizzas = ({ isLoading, items, page }) => {
+type PizzasProps = {
+  isLoading: boolean
+  items: ItemsType
+  page: number
+}
+
+const Pizzas = ({ isLoading, items, page }: PizzasProps) => {
   const dispatch = useDispatch()
-  const handleCurrentPageChange = (page) => {
-    dispatch(changePage(page))
+  const handleCurrentPageChange = (newPage: number) => {
+    dispatch(changePage(newPage))
   }
 
   return (

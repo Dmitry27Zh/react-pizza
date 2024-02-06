@@ -6,10 +6,11 @@ import CartClear from './CartClear'
 import CartBottom from './CartBottom'
 import { getItemsData } from './utils'
 import { selectCart } from '../../redux/slices/cart'
+import { CartItems as CartItemsType } from '../../types'
 
 const CartItems = () => {
   const { items, count, total } = useSelector(selectCart)
-  const [itemsData, setItemsData] = useState(null)
+  const [itemsData, setItemsData] = useState<CartItemsType | null>(null)
   const isLoading = !itemsData
   const isEmpty = count === 0
   useEffect(() => {

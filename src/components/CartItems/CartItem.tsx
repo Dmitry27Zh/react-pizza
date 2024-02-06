@@ -1,7 +1,8 @@
 import { useDispatch } from 'react-redux'
 import { increment, decrement, removeItem } from '../../redux/slices/cart'
+import { CartItem as CartItemType } from '../../types'
 
-const CartItem = ({ cartKey, title, type, size, count, total }) => {
+const CartItem = ({ cartKey, title, type, size, count, total }: CartItemType) => {
   const dispatch = useDispatch()
   const handlePlusClick = () => {
     dispatch(increment({ key: cartKey }))

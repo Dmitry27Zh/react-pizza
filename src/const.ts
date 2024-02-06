@@ -9,7 +9,7 @@ export const Type = {
     title: 'Традиционное',
     price: 20,
   },
-}
+} as const
 
 export const Size = {
   26: {
@@ -27,8 +27,10 @@ export const Size = {
     title: '40 см.',
     price: 120,
   },
-}
+} as const
 
 export const BASE_CART_ITEM = {
   count: 0,
 }
+
+export const PAGE_LIMIT = 3

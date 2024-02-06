@@ -1,12 +1,13 @@
 import { useEffect, useRef } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { getSearchParams } from './utils'
 import { initFilters } from '../../redux/slices/filter'
-import { useNavigate } from 'react-router-dom'
 import { getFilterParams } from '../../redux/slices/filter/utils'
 import { fetchPizzas } from '../../redux/slices/pizzas/index'
 import Pizzas from '../../components/Pizzas'
 import Error from '../../components/Error'
+import { PAGE_LIMIT } from '../../const'
 
 const Home = () => {
   const {
@@ -36,7 +37,7 @@ const Home = () => {
       order: 'desc',
       search: search.trim() || null,
       page,
-      limit: 3,
+      limit: PAGE_LIMIT,
     })
     if (isMounted.current) {
       navigate(`?${searchParams}`)

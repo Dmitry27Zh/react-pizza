@@ -1,29 +1,34 @@
 import { useEffect, useRef, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { changeSort } from '../redux/slices/filter'
+import { SortOption } from '../types'
 
 const Sort = () => {
   const { sortOptions, sort } = useSelector((state) => state.filter)
   const dispatch = useDispatch()
   const [isOpen, setIsOpen] = useState(false)
-  const element = useRef()
+  const element = useRef<HTMLDivElement>(null)
   const handleToggleClick = () => {
     setIsOpen((prevState) => !prevState)
   }
-  const handleChange = (option) => {
+  const handleChange = (option: SortOption) => {
     dispatch(changeSort(option))
     setIsOpen(false)
   }
   useEffect(() => {
-    const handleDocumentClick = (e) => {
-      if (!e.composedPath().includes(element.current)) {
-        setIsOpen(false)
-      }
-    }
-    document.addEventListener('click', handleDocumentClick)
+    const node = element.current
 
-    return () => {
-      document.removeEventListener('click', handleDocumentClick)
+    if (node) {
+      const handleDocumentClick = (e: MouseEvent) => {
+        if (!e.composedPath().includes(node)) {
+          setIsOpen(false)
+        }
+      }
+      document.addEventListener('click', handleDocumentClick)
+
+      return () => {
+        document.removeEventListener('click', handleDocumentClick)
+      }
     }
   }, [])
 
