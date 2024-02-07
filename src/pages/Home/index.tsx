@@ -12,7 +12,7 @@ import { useAppDispatch, useAppSelector } from '../../redux/store'
 const Home = () => {
   const { inited: filtersInited, categories, sortOptions, category, sort, page, search } = useAppSelector(selectFilter)
   const { items, status } = useAppSelector(selectPizzas)
-  const isLoading = status === 'pending'
+  const isLoading = status === 'loading'
   const isError = status === 'error'
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
