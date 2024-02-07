@@ -4,9 +4,9 @@ import './App.css'
 import './scss/app.scss'
 import Header from './components/Header'
 import Home from './pages/Home'
-import NotFound from './pages/NotFound'
 
 const Cart = React.lazy(() => import('./pages/Cart'))
+const NotFound = React.lazy(() => import('./pages/NotFound'))
 
 function App() {
   return (
@@ -24,7 +24,14 @@ function App() {
                 </Suspense>
               }
             />
-            <Route path="*" element={<NotFound />} />
+            <Route
+              path="*"
+              element={
+                <Suspense fallback={<div>Загрузка...</div>}>
+                  <NotFound />
+                </Suspense>
+              }
+            />
           </Routes>
         </div>
       </div>
