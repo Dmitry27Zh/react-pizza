@@ -1,13 +1,14 @@
 import { changeCategory, selectFilter } from '../redux/slices/filter'
 import { CategoryId } from '../types'
 import { useAppDispatch, useAppSelector } from '../redux/store'
+import React, { useCallback } from 'react'
 
 const Categories = () => {
   const { categories, category } = useAppSelector(selectFilter)
   const dispatch = useAppDispatch()
-  const handleCategoryChange = (categoryId: CategoryId) => {
+  const handleCategoryChange = useCallback((categoryId: CategoryId) => {
     dispatch(changeCategory(categoryId))
-  }
+  }, [])
 
   return (
     <div className="categories">
@@ -26,4 +27,4 @@ const Categories = () => {
   )
 }
 
-export default Categories
+export default React.memo(Categories)
