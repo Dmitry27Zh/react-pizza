@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { changeSort, selectFilter } from '../redux/slices/filter'
 import { SortOption } from '../types'
 import { useAppDispatch, useAppSelector } from '../redux/store'
@@ -8,13 +8,13 @@ const Sort = () => {
   const dispatch = useAppDispatch()
   const [isOpen, setIsOpen] = useState(false)
   const element = useRef<HTMLDivElement>(null)
-  const handleToggleClick = () => {
+  const handleToggleClick = useCallback(() => {
     setIsOpen((prevState) => !prevState)
-  }
-  const handleChange = (option: SortOption) => {
+  }, [])
+  const handleChange = useCallback((option: SortOption) => {
     dispatch(changeSort(option))
     setIsOpen(false)
-  }
+  }, [])
   useEffect(() => {
     const node = element.current
 
@@ -63,4 +63,4 @@ const Sort = () => {
   )
 }
 
-export default Sort
+export default React.memo(Sort)
