@@ -5,8 +5,8 @@ import './scss/app.scss'
 import Header from './components/Header'
 import Home from './pages/Home'
 
-const Cart = React.lazy(() => import('./pages/Cart'))
-const NotFound = React.lazy(() => import('./pages/NotFound'))
+const Cart = React.lazy(() => import(/* webpackChunkName: "Cart"*/ './pages/Cart'))
+const NotFound = React.lazy(() => import(/* webpackChunkName: "NotFound"*/ './pages/NotFound'))
 
 function App() {
   return (
