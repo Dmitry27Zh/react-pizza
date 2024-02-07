@@ -1,11 +1,11 @@
 import { useEffect, useRef, useState } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
 import { changeSort, selectFilter } from '../redux/slices/filter'
 import { SortOption } from '../types'
+import { useAppDispatch, useAppSelector } from '../redux/store'
 
 const Sort = () => {
-  const { sortOptions, sort } = useSelector(selectFilter)
-  const dispatch = useDispatch()
+  const { sortOptions, sort } = useAppSelector(selectFilter)
+  const dispatch = useAppDispatch()
   const [isOpen, setIsOpen] = useState(false)
   const element = useRef<HTMLDivElement>(null)
   const handleToggleClick = () => {

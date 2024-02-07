@@ -1,11 +1,11 @@
 import { Link } from 'react-router-dom'
 import logoIcon from '../assets/img/icons/pizza-logo.svg'
 import Search from './Search'
-import { useSelector } from 'react-redux'
 import { selectCart } from '../redux/slices/cart'
+import { useAppSelector } from '../redux/store'
 
 const Header = () => {
-  const { total, count } = useSelector(selectCart)
+  const { total, count } = useAppSelector(selectCart)
 
   return (
     <div className="header">

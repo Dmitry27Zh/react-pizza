@@ -1,10 +1,10 @@
-import { useDispatch, useSelector } from 'react-redux'
 import { changeCategory, selectFilter } from '../redux/slices/filter'
 import { CategoryId } from '../types'
+import { useAppDispatch, useAppSelector } from '../redux/store'
 
 const Categories = () => {
-  const { categories, category } = useSelector(selectFilter)
-  const dispatch = useDispatch()
+  const { categories, category } = useAppSelector(selectFilter)
+  const dispatch = useAppDispatch()
   const handleCategoryChange = (categoryId: CategoryId) => {
     dispatch(changeCategory(categoryId))
   }

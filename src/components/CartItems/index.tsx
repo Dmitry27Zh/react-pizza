@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react'
-import { useSelector } from 'react-redux'
 import CartItem from './CartItem'
 import CartEmpty from './CartEmpty'
 import CartClear from './CartClear'
@@ -7,9 +6,10 @@ import CartBottom from './CartBottom'
 import { getItemsData } from './utils'
 import { selectCart } from '../../redux/slices/cart'
 import { CartItems as CartItemsType } from '../../types'
+import { useAppSelector } from '../../redux/store'
 
 const CartItems = () => {
-  const { items, count, total } = useSelector(selectCart)
+  const { items, count, total } = useAppSelector(selectCart)
   const [itemsData, setItemsData] = useState<CartItemsType | null>(null)
   const isLoading = !itemsData
   const isEmpty = count === 0
